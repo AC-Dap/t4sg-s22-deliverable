@@ -10,18 +10,13 @@ import { useQuery } from "urql";
 import AddCategoryModal from "./Modals/AddCategoryModal";
 import AddTagModal from "./Modals/AddTagModal";
 
-/* 
-  FEATURE 1 TODO:
-  Write a query that will get the name AND id of 
-  every category. Build this query, and verify it 
-  works in Hasura, and then paste the query here.
-
-  Make sure to replace the string that is currently
-  in this variable 
-*/
+// TODO: don't need name?
 export const ManagementContainerQuery = `
 query MyQuery {
-  __typename 
+  category {
+    id
+    name
+  }
 }
 `;
 // END TODO
@@ -47,14 +42,15 @@ const CaseManagementContainer: React.FC = (props) => {
     <>
       <h5 className="title">Home Page</h5>
       <Grid container spacing={3}>
-        {/*
-          FEATURE 1 TODO:
-          Use the data from the result of the query to render 
-          a CaseCategory for every category in the response.
-          Remember, the response is stored in the "data" variable!
-        */}
-
-        {/* END TODO */}
+        {fetching ? (
+            "Loading categories..."
+        ) : (
+            data.category.map((category: ManagementCategory) => (
+                <Grid item xs={4} key={category.id}>
+                    <CaseCategory category_id={category.id}/>
+                </Grid>
+            ))
+        )}
       </Grid>
 
       <AddCaseModal
