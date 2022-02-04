@@ -28,6 +28,7 @@ const CategoryQuery = `
         status
         description
         id
+        category_id
       }
       name
     }
@@ -61,7 +62,12 @@ const CaseCategory = (props: CaseCategoryProps) => {
           <Container>
               {category ?
                   category.cases.map((c: CaseData, index: number) => {
-                      return <CaseCard key={index} data={c} changeCheckedCases={props.changeCheckedCases} />;
+                      return <CaseCard
+                          key={index}
+                          data={c}
+                          changeCheckedCases={props.changeCheckedCases}
+                          onStatusChange={() => executeQuery()}
+                      />;
                   })
                   : "Something went wrong"
               }

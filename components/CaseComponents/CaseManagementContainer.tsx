@@ -93,10 +93,7 @@ const CaseManagementContainer: React.FC = (props) => {
                 Add Case
             </Button>
             <Button variant="dark" onClick={() => setDeleteCasesDialogOpen(true)}>
-                Delete Case
-            </Button>
-            <Button variant="dark" onClick={() => "redirect"}>
-                Edit Case
+                Delete Selected Cases
             </Button>
         </Container>
 
