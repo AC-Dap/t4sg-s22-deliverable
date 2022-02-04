@@ -5,6 +5,7 @@ import CaseCard, { CaseData } from "./CaseCard";
 
 type CaseCategoryProps = {
   category_id: number;
+  changeCheckedCases: (caseId: number, add: boolean) => void;
 };
 
 type CaseCategoryData = {
@@ -62,7 +63,7 @@ const CaseCategory = (props: CaseCategoryProps) => {
         <Col>
           {category
             ? category.cases.map((c: CaseData, index: number) => {
-                return <CaseCard key={index} data={c} />;
+                return <CaseCard key={index} data={c} changeCheckedCases={props.changeCheckedCases} />;
               })
             : "Something went wrong"}
         </Col>

@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 type AddCaseModalProps = {
   open: boolean;
   onClose: () => void;
+  onCaseAdded: () => void;
 };
 
 const InsertCaseMutation = `
@@ -140,6 +141,8 @@ const AddCaseModal: React.FC<AddCaseModalProps> = (props) => {
               name,
               status,
               category_id: category,
+            }).then((res) => {
+                props.onCaseAdded();
             });
             props.onClose();
           }}
