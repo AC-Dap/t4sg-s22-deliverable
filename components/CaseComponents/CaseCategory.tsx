@@ -2,6 +2,8 @@ import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import { useQuery } from "urql";
 import CaseCard, { CaseData } from "./CaseCard";
+import {Accordion, AccordionDetails, AccordionSummary} from "@material-ui/core";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
 type CaseCategoryProps = {
   category_id: number;
@@ -43,32 +45,29 @@ const CaseCategory = (props: CaseCategoryProps) => {
   const category: CaseCategoryData | null = data ? data?.category[0] : null;
 
   return (
-    <Container
-      style={{ width: "100%", borderStyle: "solid", padding: "0.75rem" }}
-    >
-      <Row>
-        <Col>
-          {category ? (
-            <h3 className="font-weight-normal t4sg-color text-center">
-              {category.name ? category.name : <i>{`Category ${category_id}`}</i>}
-            </h3>
-          ) : (
-            <h3 className="font-weight-normal t4sg-color text-center">
-              Something went wrong
-            </h3>
-          )}
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          {category
-            ? category.cases.map((c: CaseData, index: number) => {
-                return <CaseCard key={index} data={c} changeCheckedCases={props.changeCheckedCases} />;
-              })
-            : "Something went wrong"}
-        </Col>
-      </Row>
-    </Container>
+    <Accordion defaultExpanded={true} style={{borderStyle: "solid"}}>
+      <AccordionSummary expandIcon={<ExpandMore/>}>
+        {category ? (
+          <h3 className="font-weight-normal t4sg-color text-center">
+            {category.name ? category.name : <i>{`Category ${category_id}`}</i>}
+          </h3>
+        ) : (
+          <h3 className="font-weight-normal t4sg-color text-center">
+            Something went wrong
+          </h3>
+        )}
+      </AccordionSummary>
+      <AccordionDetails>
+          <Container>
+              {category ?
+                  category.cases.map((c: CaseData, index: number) => {
+                      return <CaseCard key={index} data={c} changeCheckedCases={props.changeCheckedCases} />;
+                  })
+                  : "Something went wrong"
+              }
+          </Container>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 
