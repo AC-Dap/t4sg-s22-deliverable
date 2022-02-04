@@ -49,7 +49,7 @@ const CaseCategory = (props: CaseCategoryProps) => {
         <Col>
           {category ? (
             <h3 className="font-weight-normal t4sg-color text-center">
-              {category.name}
+              {category.name ? category.name : <i>{`Category ${category_id + 1}`}</i>}
             </h3>
           ) : (
             <h3 className="font-weight-normal t4sg-color text-center">
