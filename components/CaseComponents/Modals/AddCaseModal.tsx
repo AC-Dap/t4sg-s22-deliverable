@@ -121,7 +121,7 @@ const AddCaseModal: React.FC<AddCaseModalProps> = (props) => {
                     // Have placeholder name for categories with no name
                     data.category.map((category: ManagementCategory, i:number) => (
                         <MenuItem key={i} value={category.id}>
-                            {category.name ? category.name : <i>{`Category ${i+1}`}</i>}
+                            {category.name ? category.name : <i>{`Category ${category.id}`}</i>}
                         </MenuItem>
                     ))
                 }
