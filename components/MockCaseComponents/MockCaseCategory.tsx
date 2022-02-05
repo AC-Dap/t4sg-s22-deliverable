@@ -26,20 +26,24 @@ const MockCaseCategory = (props: MockCaseCategoryProps) => {
         <Col>
           <CaseCard
             data={{
+              category_id: 12,
               name: "Mock Case 1",
               status: "In progress",
               description: "First Mock Case",
               id: 1,
             }}
-          />
+            changeCheckedCases={() => console.log("Mock 1 checked")}
+            onStatusChange={() => console.log("Mock 1 changed")}/>
           <CaseCard
             data={{
+              category_id: 3,
               name: "Mock Case 2",
               status: "In progress",
               description: "Second Mock Case",
               id: 2,
             }}
-          />
+            changeCheckedCases={() => console.log("Mock 2 checked")}
+            onStatusChange={() => console.log("Mock 2 changed")}/>
         </Col>
       </Row>
     </Container>

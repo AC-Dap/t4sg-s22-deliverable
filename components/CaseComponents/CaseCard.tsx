@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import {useMutation, useQuery} from "urql";
 import {Box, Button, Checkbox, FormControl, MenuItem, Select} from "@material-ui/core";
-import EditIcon from "@material-ui/icons/edit"
+import Edit from "@material-ui/icons/Edit"
 import EditCaseModal from "./Modals/EditCaseModal";
 
 type CaseCardProps = {
@@ -57,7 +57,7 @@ const CaseCard: React.FC<CaseCardProps> = (props) => {
                     <Card body style={{backgroundColor: "#e4ebf5"}}>
                         <Box position={"absolute"} top={0} right={0}>
                             <Button onClick={() => setEditCaseModelOpen(true)}>
-                                <EditIcon/>
+                                <Edit/>
                             </Button>
                             <Checkbox
                                 checked={selected}
