@@ -44,7 +44,6 @@ const CaseManagementContainer: React.FC = (props) => {
   const [addTagModalOpen, setAddTagModalOpen] = React.useState<boolean>(false);
 
   const [checkedCases, setCheckedCases] = React.useState<number[]>([]);
-
   // Add or remove a case from the list of selected cases
   const changeCheckedCases = (caseId: number, add: boolean) => {
       if(add){
@@ -55,7 +54,7 @@ const CaseManagementContainer: React.FC = (props) => {
   }
 
   const [deleteCasesDialogOpen, setDeleteCasesDialogOpen] = React.useState<boolean>(false);
-    const [result, executeMutation] = useMutation(DeleteCasesMutation);
+  const [result, executeMutation] = useMutation(DeleteCasesMutation);
   const deleteCheckedCases = () => {
       executeMutation({ids: checkedCases}).then((res) => {
           location.reload();
@@ -83,31 +82,34 @@ const CaseManagementContainer: React.FC = (props) => {
                 zIndex: 2
             }}
         >
-            <Button variant="dark" onClick={() => setAddCategoryModalOpen(true)}>
+            {/*For some reason could not get css file to work, so had to stick with inline styling*/}
+            <Button style={{margin: "0.2rem"}} variant="dark" onClick={() => setAddCategoryModalOpen(true)}>
                 Add Category
             </Button>
-            <Button variant="dark" onClick={() => setAddTagModalOpen(true)}>
+            <Button style={{margin: "0.2rem"}} variant="dark" onClick={() => setAddTagModalOpen(true)}>
                 Add Tag To A Case
             </Button>
-            <Button variant="dark" onClick={() => setAddCaseModalOpen(true)}>
+            <Button style={{margin: "0.2rem"}} variant="dark" onClick={() => setAddCaseModalOpen(true)}>
                 Add Case
             </Button>
-            <Button variant="dark" onClick={() => setDeleteCasesDialogOpen(true)}>
+            <Button style={{margin: "0.2rem"}} variant="dark" onClick={() => setDeleteCasesDialogOpen(true)}>
                 Delete Selected Cases
             </Button>
         </Container>
 
-      <Grid container spacing={3}>
-        {data ? (
-            data.category.map((category: ManagementCategory) => (
-                <Grid item xs={4} key={category.id}>
-                    <CaseCategory category_id={category.id} changeCheckedCases={changeCheckedCases}/>
-                </Grid>
-            ))
-        ) : fetching ? (
-            "Loading categories..."
-        ) : null}
-      </Grid>
+        <Container style={{width: "100%", maxWidth: "none"}}>
+            <Grid container spacing={3}>
+                {data ? (
+                    data.category.map((category: ManagementCategory) => (
+                        <Grid item xs={4} key={category.id}>
+                            <CaseCategory category_id={category.id} changeCheckedCases={changeCheckedCases}/>
+                        </Grid>
+                    ))
+                ) : fetching ? (
+                    "Loading categories..."
+                ) : null}
+            </Grid>
+        </Container>
 
         {/* Kind of hacky to reload the page in order to show
             the new case, but this is the easiest way without
@@ -130,7 +132,7 @@ const CaseManagementContainer: React.FC = (props) => {
         onClose={() => setAddTagModalOpen(false)}
         open={addTagModalOpen}
       />
-        
+
         <Dialog
             onClose={() => setDeleteCasesDialogOpen(false)}
             open={deleteCasesDialogOpen}>
