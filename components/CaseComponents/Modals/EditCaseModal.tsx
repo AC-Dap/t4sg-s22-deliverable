@@ -10,8 +10,8 @@ import {
     TextField,
     Typography,
 } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { useMutation, useQuery } from "urql";
+import {makeStyles, createStyles, Theme} from "@material-ui/core/styles";
+import {useMutation, useQuery} from "urql";
 import {
     ManagementCategory,
     ManagementContainerQuery,
@@ -41,13 +41,13 @@ const EditCaseModal: React.FC<AddCaseModalProps> = (props) => {
     const [description, setDescription] = useState<string>(props.initCaseData.description);
     const [status, setStatus] = useState<string>(props.initCaseData.status);
     const [category, setCategory] = useState<number>(props.initCaseData.category_id);
-    const [{ data, fetching, error }, executeQuery] = useQuery({
+    const [{data, fetching, error}, executeQuery] = useQuery({
         query: ManagementContainerQuery,
     });
 
     // If user manually changed the status, it
     // won't update the state automatically
-    if(props.initCaseData.status != status){
+    if (props.initCaseData.status != status) {
         setStatus(props.initCaseData.status);
     }
 
@@ -127,7 +127,7 @@ const EditCaseModal: React.FC<AddCaseModalProps> = (props) => {
                         >
                             {
                                 // Have placeholder name for categories with no name
-                                data.category.map((category: ManagementCategory, i:number) => (
+                                data.category.map((category: ManagementCategory, i: number) => (
                                     <MenuItem key={i} value={category.id}>
                                         {category.name ? category.name : <i>{`Category ${category.id}`}</i>}
                                     </MenuItem>

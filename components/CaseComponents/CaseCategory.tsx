@@ -1,18 +1,18 @@
 import React from "react";
-import { Container, Row, Col } from "reactstrap";
-import { useQuery } from "urql";
-import CaseCard, { CaseData } from "./CaseCard";
+import {Container, Row, Col} from "reactstrap";
+import {useQuery} from "urql";
+import CaseCard, {CaseData} from "./CaseCard";
 import {Accordion, AccordionDetails, AccordionSummary} from "@material-ui/core";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 
 type CaseCategoryProps = {
-  category_id: number;
-  changeCheckedCases: (caseId: number, add: boolean) => void;
+    category_id: number;
+    changeCheckedCases: (caseId: number, add: boolean) => void;
 };
 
 type CaseCategoryData = {
-  name: string;
-  cases: CaseData[];
+    name: string;
+    cases: CaseData[];
 };
 
 /*
@@ -37,44 +37,44 @@ const CategoryQuery = `
 /* END TODO */
 
 const CaseCategory = (props: CaseCategoryProps) => {
-  const category_id = props.category_id;
-  const [{ data, fetching, error }, executeQuery] = useQuery({
-    query: CategoryQuery,
-    variables: { category_id },
-  });
+    const category_id = props.category_id;
+    const [{data, fetching, error}, executeQuery] = useQuery({
+        query: CategoryQuery,
+        variables: {category_id},
+    });
 
-  const category: CaseCategoryData | null = data ? data?.category[0] : null;
+    const category: CaseCategoryData | null = data ? data?.category[0] : null;
 
-  return (
-    <Accordion defaultExpanded={true} style={{borderStyle: "solid"}}>
-      <AccordionSummary expandIcon={<ExpandMore/>}>
-        {category ? (
-          <h3 className="font-weight-normal t4sg-color text-center">
-            {category.name ? category.name : <i>{`Category ${category_id}`}</i>}
-          </h3>
-        ) : (
-          <h3 className="font-weight-normal t4sg-color text-center">
-            Something went wrong
-          </h3>
-        )}
-      </AccordionSummary>
-      <AccordionDetails>
-          <Container>
-              {category ?
-                  category.cases.map((c: CaseData, index: number) => {
-                      return <CaseCard
-                          key={index}
-                          data={c}
-                          changeCheckedCases={props.changeCheckedCases}
-                          onStatusChange={() => executeQuery()}
-                      />;
-                  })
-                  : "Something went wrong"
-              }
-          </Container>
-      </AccordionDetails>
-    </Accordion>
-  );
+    return (
+        <Accordion defaultExpanded={true} style={{borderStyle: "solid"}}>
+            <AccordionSummary expandIcon={<ExpandMore/>}>
+                {category ? (
+                    <h3 className="font-weight-normal t4sg-color text-center">
+                        {category.name ? category.name : <i>{`Category ${category_id}`}</i>}
+                    </h3>
+                ) : (
+                    <h3 className="font-weight-normal t4sg-color text-center">
+                        Something went wrong
+                    </h3>
+                )}
+            </AccordionSummary>
+            <AccordionDetails>
+                <Container>
+                    {category ?
+                        category.cases.map((c: CaseData, index: number) => {
+                            return <CaseCard
+                                key={index}
+                                data={c}
+                                changeCheckedCases={props.changeCheckedCases}
+                                onStatusChange={() => executeQuery()}
+                            />;
+                        })
+                        : "Something went wrong"
+                    }
+                </Container>
+            </AccordionDetails>
+        </Accordion>
+    );
 };
 
 export default CaseCategory;
