@@ -58,7 +58,18 @@ const EditCaseModal: React.FC<AddCaseModalProps> = (props) => {
             <Typography variant="h4" align="center">
                 Edit Case
             </Typography>
-            <Box>
+            <Box component={"form"} onSubmit={() => {
+                executeMutation({
+                    id: props.initCaseData.id,
+                    description,
+                    name,
+                    status,
+                    category_id: category,
+                }).then((res) => {
+                    props.onCaseChanged();
+                });
+                props.onClose();
+            }}>
                 <TextField
                     id="standard-full-width"
                     label="Name"
@@ -72,6 +83,7 @@ const EditCaseModal: React.FC<AddCaseModalProps> = (props) => {
                     InputLabelProps={{
                         shrink: true,
                     }}
+                    required
                 />
                 <TextField
                     id="standard-full-width"
@@ -87,7 +99,7 @@ const EditCaseModal: React.FC<AddCaseModalProps> = (props) => {
                         shrink: true,
                     }}
                 />
-                <FormControl fullWidth>
+                <FormControl required fullWidth>
                     <InputLabel id="status-select-label">Status</InputLabel>
                     <Select
                         labelId="status-select-label"
@@ -103,7 +115,7 @@ const EditCaseModal: React.FC<AddCaseModalProps> = (props) => {
                     </Select>
                 </FormControl>
                 {data ? (
-                    <FormControl fullWidth>
+                    <FormControl required fullWidth>
                         <InputLabel id="category-select-label">Category</InputLabel>
                         <Select
                             labelId="category-select-label"
@@ -126,25 +138,14 @@ const EditCaseModal: React.FC<AddCaseModalProps> = (props) => {
                 ) : fetching ? (
                     "Loading Categories"
                 ) : null}
-            </Box>
-            <Box mt="10px" display="flex" justifyContent="center">
-                <Button
-                    variant="outlined"
-                    onClick={() => {
-                        executeMutation({
-                            id: props.initCaseData.id,
-                            description,
-                            name,
-                            status,
-                            category_id: category,
-                        }).then((res) => {
-                            props.onCaseChanged();
-                        });
-                        props.onClose();
-                    }}
-                >
-                    Submit
-                </Button>
+                <Box mt="10px" display="flex" justifyContent="center">
+                    <Button
+                        variant="outlined"
+                        type={"submit"}
+                    >
+                        Submit
+                    </Button>
+                </Box>
             </Box>
         </StyledModal>
     );
